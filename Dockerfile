@@ -1,4 +1,4 @@
-FROM 3.11-bullseye
+FROM python:3.11-bullseye
 
 WORKDIR /bin
 COPY . /bin
@@ -10,4 +10,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 VOLUME /bin/data
 VOLUME /bin/config
 
-CMD python3 main.py
+ENTRYPOINT ["python3","main.py"]
