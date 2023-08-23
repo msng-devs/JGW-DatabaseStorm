@@ -8,6 +8,7 @@ import yaml
 from src.model.model import create_history
 from src.utlis.config import load_config
 from src.utlis.mail import send_mail
+from src.utlis.path import get_absolute_path
 
 conf = load_config()
 
@@ -29,12 +30,13 @@ mysql_connector_config = {
 # mysqldump를 수행하는 함수.
 # 해당 스크립트가 동작할 컨테이너에는 mysqlclient가 설치되어있는데, 해당 클라이언트를 바탕으로 mysqldump를 수행한다.
 def run_mysqldump():
-    file_name = "/data/" + datetime.now().strftime("%Y-%m-%d") + "_bak"
-    output_file = os.path.join(root_directory, file_name + "/backup.sql")
-    os.makedirs(os.path.join(root_directory, file_name), exist_ok=True)
+    output_directory = get_absolute_path(
+        f"/data/{mysql_database}_{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}_backup")
+    os.makedirs(output_directory, exist_ok=True)
+    output_file_name = os.path.join(output_directory, "/backup.sql")
 
-    #http://intomysql.blogspot.com/2010/12/mysqldump.html
-    #참고
+    # http://intomysql.blogspot.com/2010/12/mysqldump.html
+    # 참고
     mysqldump_cmd = [
         'mysqldump',
         'single-transaction',
@@ -53,13 +55,13 @@ def run_mysqldump():
     ]
 
     try:
-        with open(output_file, 'w') as f:
+        with open(output_file_name, 'w') as f:
             subprocess.run(mysqldump_cmd, stdout=f, text=True, check=True)
         logging.info('Backup completed successfully.')
-        history_result = create_history(output_file)
+        history_result = create_history(output_directory)
 
         if history_result:
-            send_mail("[성공] Database Backup", f"{datetime.now()}에 실시한 성공적으로 백업을 완료하였습니다. 생성된 파일명 {output_file}")
+            send_mail("[성공] Database Backup", f"{datetime.now()}에 실시한 성공적으로 백업을 완료하였습니다. 생성된 파일명 {output_directory}")
 
         else:
             send_mail("[실패] Database Backup",
