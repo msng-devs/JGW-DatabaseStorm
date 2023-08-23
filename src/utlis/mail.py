@@ -2,8 +2,9 @@ import yaml
 import smtplib
 from email.message import EmailMessage
 
-with open('info.yaml') as f:
-    conf = yaml.safe_load(f)
+from src.utlis.config import load_config
+
+conf = load_config()
 
 
 def login_smtp():

@@ -5,14 +5,14 @@ import schedule
 import yaml
 
 from src.model.model import init_db
+from src.utlis.config import load_config
 from src.utlis.log import setup_logging
 from src.utlis.mysql_client import run_mysqldump
 from src.utlis.validation import smtp_validation, database_validation
 
 
 def main():
-    with open('info.yaml') as f:
-        conf = yaml.safe_load(f)
+    conf = load_config()
 
     setup_logging()
 

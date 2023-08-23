@@ -6,10 +6,10 @@ import mysql.connector
 import yaml
 
 from src.model.model import create_history
+from src.utlis.config import load_config
 from src.utlis.mail import send_mail
 
-with open('info.yaml') as f:
-    conf = yaml.safe_load(f)
+conf = load_config()
 
 root_directory = os.path.dirname(os.path.abspath(__file__))
 
