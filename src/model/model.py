@@ -9,8 +9,7 @@ from src.utlis.config import load_config
 
 conf = load_config()
 
-root_directory = os.path.dirname(os.path.abspath(__file__))
-db_file_path = os.path.join(root_directory, '/data/data.db')
+db_file_path = '/bin/data/history.db'
 
 
 def init_db():
