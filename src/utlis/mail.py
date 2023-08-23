@@ -9,6 +9,7 @@ conf = load_config()
 
 def login_smtp():
     smtp = smtplib.SMTP_SSL(conf["SMTP_SERVER"], conf["SMTP_PORT"])
+    smtp.ehlo()
     smtp.login(conf["SMTP_USER"], conf["SMTP_PASSWORD"])
     return smtp
 

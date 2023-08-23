@@ -31,9 +31,9 @@ mysql_connector_config = {
 # 해당 스크립트가 동작할 컨테이너에는 mysqlclient가 설치되어있는데, 해당 클라이언트를 바탕으로 mysqldump를 수행한다.
 def run_mysqldump():
     output_directory = get_absolute_path(
-        f"/data/{mysql_database}_{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}_backup")
+        ['data', f'{mysql_database}_{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}_backup'])
     os.makedirs(output_directory, exist_ok=True)
-    output_file_name = os.path.join(output_directory, "/backup.sql")
+    output_file_name = os.path.join(output_directory, "backup.sql")
 
     # http://intomysql.blogspot.com/2010/12/mysqldump.html
     # 참고

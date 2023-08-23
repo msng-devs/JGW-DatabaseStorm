@@ -10,7 +10,7 @@ from src.utlis.path import get_absolute_path
 
 conf = load_config()
 
-db_file_path = get_absolute_path("/data/history.db")
+db_file_path = get_absolute_path(['data', 'history.db'])
 
 
 def init_db():

@@ -39,9 +39,9 @@ def main():
     logging.info("All process is finish! Now Start backup schedule.")
     schedule.every().day.at(conf["RUN_TIME"]).do(run_mysqldump)
 
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    # while True:
+    #     schedule.run_pending()
+    #     time.sleep(1)
 
 
 if __name__ == "__main__":
