@@ -7,15 +7,12 @@ from src.utlis.config import load_config
 conf = load_config()
 
 
-def login_smtp():
-    smtp = smtplib.SMTP_SSL(conf["SMTP_SERVER"], conf["SMTP_PORT"])
-    smtp.ehlo()
-    smtp.login(conf["SMTP_USER"], conf["SMTP_PASSWORD"])
-    return smtp
 
 
 def send_mail(subject: str, text: str):
-    smtp = login_smtp()
+    smtp = smtplib.SMTP_SSL(conf["SMTP_SERVER"], conf["SMTP_PORT"])
+    smtp.ehlo()
+    smtp.login(conf["SMTP_USER"], conf["SMTP_PASSWORD"])
 
     message = EmailMessage()
 
