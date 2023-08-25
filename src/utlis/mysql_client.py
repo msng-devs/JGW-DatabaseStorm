@@ -32,7 +32,7 @@ def run_mysqldump():
     # 사용된 Flag들은 다음 링크를 참고 http://intomysql.blogspot.com/2010/12/mysqldump.html
     mysqldump_cmd = [
         'mysqldump',
-        'single-transaction',
+        '--single-transaction',
         '--skip-opt',
         '--extended-insert',
         '--add-drop-database',
@@ -44,8 +44,8 @@ def run_mysqldump():
         '--host=' + mysql_host,
         '--user=' + mysql_user,
         '--password=' + mysql_password,
-        '--databases=' + mysql_database,
-        '--port=' + str(mysql_port)
+        '--port=' + str(mysql_port),
+        mysql_database
     ]
 
     try:
