@@ -1,3 +1,4 @@
+#백업을 수행할 Database의 정보
 DB_HOST:
 DB_PORT:
 DB_USER:
@@ -11,6 +12,11 @@ SMTP_PASSWORD:
 SMTP_FROM:
 SMTP_TO:
 
+# 저장된 데이터를 삭제할 날짜 (일 단위)
+# ex) 7 , 이렇게 설정하면 7일이 지난 데이터는 삭제됩니다.
 DATA_EXPIRED_DATE:
 
+# 백업을 수행할 시간
+# 'HH:MM:SS' or 'HH:MM' 형식
+# 10:00 이면 매일 10시에 백업을 수행한다.
 RUN_TIME:

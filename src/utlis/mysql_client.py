@@ -29,8 +29,7 @@ def run_mysqldump():
     os.makedirs(output_directory, exist_ok=True)
     output_file_name = os.path.join(output_directory, "backup.sql")
 
-    # http://intomysql.blogspot.com/2010/12/mysqldump.html
-    # 참고
+    # 사용된 Flag들은 다음 링크를 참고 http://intomysql.blogspot.com/2010/12/mysqldump.html
     mysqldump_cmd = [
         'mysqldump',
         'single-transaction',
@@ -66,7 +65,7 @@ def run_mysqldump():
         logging.info('Error occurred:', e)
         send_mail("[실패] Database Backup", f"{datetime.now()}에 실시한 백업을 실패했습니다. 에러 메시지: {str(e)}")
 
-
+# 입력된 데이터베이스 서버 정보가 유효한지 검증하는 함수
 def run_server_check():
     try:
         logging.info(f"Start Connect to database {mysql_host}")
@@ -80,7 +79,7 @@ def run_server_check():
         logging.error("Failed to connect to database server > " + str(e))
         exit(0)
 
-
+# 입력된 데이터베이스가 유효한지 검증하는 함수
 def run_database_check():
     try:
         connection = mysql.connector.connect(host=mysql_host, user=mysql_user, password=mysql_password,
