@@ -80,7 +80,7 @@ def run_server_check():
         result = cursor.fetchall()
 
     except Exception as e:
-        logging.error("Failed to connect to database")
+        logging.error("Failed to connect to database" + str(e))
         exit(0)
 
 
@@ -97,5 +97,5 @@ def run_database_check():
         exit(0)
 
     except Exception as e:
-        logging.error("Failed to connect to database")
+        logging.error("Failed to connect to database" + str(e))
         exit(0)
