@@ -12,6 +12,7 @@ conf = load_config()
 
 db_file_path = get_absolute_path(['data', 'history.db'])
 
+
 # 내부 history 저장용 database를 구성하는 함수
 def init_db():
     con = sqlite3.connect(db_file_path)
@@ -29,9 +30,10 @@ def init_db():
                             )''')
             con.commit()
     except Exception as e:
-        logging.error("Failed init DB. please check your './data' directory")
+        logging.error("Failed init DB. please check your './data' directory error: " + str(e))
     finally:
         con.close()
+
 
 # 백업 수행후, 생성된 파일 정보를 history table에 저장하는 함수
 def create_history(path: str) -> bool:
@@ -49,6 +51,7 @@ def create_history(path: str) -> bool:
         con.close()
 
     return status
+
 
 # 설정한 유효 기간이 지난 백업 파일을 삭제하는 함수
 def find_old_history():
