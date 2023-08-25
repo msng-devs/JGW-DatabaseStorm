@@ -77,7 +77,7 @@ def run_server_check():
         result = cursor.fetchall()
 
     except Exception as e:
-        logging.error("Failed to connect to database > " + str(e))
+        logging.error("Failed to connect to database server > " + str(e))
         exit(0)
 
 
@@ -86,14 +86,14 @@ def run_database_check():
         connection = mysql.connector.connect(host=mysql_host, user=mysql_user, password=mysql_password,
                                              port=int(mysql_port))
         cursor = connection.cursor()
-        cursor.execute("SHOW DATABASES LIKE " + mysql_database)
+        cursor.execute(f"SELECT 1 FROM Information_schema.tables WHERE table_schema = '{mysql_database}'")
         result = cursor.fetchall()
-        result.index(mysql_database)
+        assert len(result) > 0
 
-    except ValueError:
+    except AssertionError as e:
         logging.error("Database is not found")
         exit(0)
 
     except Exception as e:
-        logging.error("Failed to connect to database > " + str(e))
+        logging.error("Failed to connect to check database > " + str(e))
         exit(0)
