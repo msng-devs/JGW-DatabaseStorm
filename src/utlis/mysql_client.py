@@ -18,13 +18,7 @@ mysql_host = conf['DB_HOST']
 mysql_user = conf['DB_USER']
 mysql_password = conf['DB_PASSWORD']
 mysql_database = conf['DB_NAME']
-
-mysql_connector_config = {
-    'user': mysql_user,
-    'password': mysql_password,
-    'host': mysql_host,
-    'database': mysql_database
-}
+mysql_port = conf['DB_PORT']
 
 
 # mysqldump를 수행하는 함수.
@@ -51,7 +45,8 @@ def run_mysqldump():
         '--host=' + mysql_host,
         '--user=' + mysql_user,
         '--password=' + mysql_password,
-        '--databases' + mysql_database
+        '--databases' + mysql_database,
+        '--port=' + mysql_port
     ]
 
     try:
@@ -74,19 +69,20 @@ def run_mysqldump():
 
 def run_server_check():
     try:
-        connection = mysql.connector.connect(**mysql_connector_config)
+        logging.info(f"Start Connect to database {mysql_host}")
+        connection = mysql.connector.connect(host=mysql_host, user=mysql_user, password=mysql_password, port=mysql_port)
         cursor = connection.cursor()
         cursor.execute("SELECT 1")
         result = cursor.fetchall()
 
     except Exception as e:
-        logging.error("Failed to connect to database" + str(e))
+        logging.error("Failed to connect to database > " + str(e))
         exit(0)
 
 
 def run_database_check():
     try:
-        connection = mysql.connector.connect(**mysql_connector_config)
+        connection = mysql.connector.connect(host=mysql_host, user=mysql_user, password=mysql_password, port=mysql_port)
         cursor = connection.cursor()
         cursor.execute("SHOW DATABASES LIKE " + mysql_database)
         result = cursor.fetchall()
@@ -97,5 +93,5 @@ def run_database_check():
         exit(0)
 
     except Exception as e:
-        logging.error("Failed to connect to database" + str(e))
+        logging.error("Failed to connect to database > " + str(e))
         exit(0)
