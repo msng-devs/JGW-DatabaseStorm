@@ -70,7 +70,7 @@ def run_mysqldump():
 def run_server_check():
     try:
         logging.info(f"Start Connect to database {mysql_host}")
-        connection = mysql.connector.connect(host=mysql_host, user=mysql_user, password=mysql_password, port=mysql_port)
+        connection = mysql.connector.connect(host=mysql_host, user=mysql_user, password=mysql_password, port=int(mysql_port))
         cursor = connection.cursor()
         cursor.execute("SELECT 1")
         result = cursor.fetchall()
@@ -82,7 +82,7 @@ def run_server_check():
 
 def run_database_check():
     try:
-        connection = mysql.connector.connect(host=mysql_host, user=mysql_user, password=mysql_password, port=mysql_port)
+        connection = mysql.connector.connect(host=mysql_host, user=mysql_user, password=mysql_password, port=int(mysql_port))
         cursor = connection.cursor()
         cursor.execute("SHOW DATABASES LIKE " + mysql_database)
         result = cursor.fetchall()
