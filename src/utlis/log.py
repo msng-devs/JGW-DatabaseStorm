@@ -1,6 +1,6 @@
 import logging
 
-level = logging.DEBUG
+level = logging.INFO
 
 
 def setup_logging():

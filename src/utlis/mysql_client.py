@@ -44,7 +44,7 @@ def run_mysqldump():
         '--host=' + mysql_host,
         '--user=' + mysql_user,
         '--password=' + mysql_password,
-        '--databases' + mysql_database,
+        '--databases=' + mysql_database,
         '--port=' + str(mysql_port)
     ]
 
