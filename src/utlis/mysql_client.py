@@ -14,10 +14,10 @@ conf = load_config()
 
 root_directory = os.path.dirname(os.path.abspath(__file__))
 
-mysql_host = conf['DB_HOST']
-mysql_user = conf['DB_USER']
-mysql_password = conf['DB_PASSWORD']
-mysql_database = conf['DB_NAME']
+mysql_host = str(conf['DB_HOST'])
+mysql_user = str(conf['DB_USER'])
+mysql_password = str(conf['DB_PASSWORD'])
+mysql_database = str(conf['DB_NAME'])
 mysql_port = conf['DB_PORT']
 
 
@@ -45,7 +45,7 @@ def run_mysqldump():
         '--user=' + mysql_user,
         '--password=' + mysql_password,
         '--databases' + mysql_database,
-        '--port=' + mysql_port
+        '--port=' + str(mysql_port)
     ]
 
     try:
@@ -65,6 +65,7 @@ def run_mysqldump():
         logging.info('Error occurred:', e)
         send_mail("[실패] Database Backup", f"{datetime.now()}에 실시한 백업을 실패했습니다. 에러 메시지: {str(e)}")
 
+
 # 입력된 데이터베이스 서버 정보가 유효한지 검증하는 함수
 def run_server_check():
     try:
@@ -78,6 +79,7 @@ def run_server_check():
     except Exception as e:
         logging.error("Failed to connect to database server > " + str(e))
         exit(0)
+
 
 # 입력된 데이터베이스가 유효한지 검증하는 함수
 def run_database_check():

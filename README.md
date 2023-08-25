@@ -31,6 +31,7 @@ docker build -t your-image-name .
 4. Docker 컨테이너를 실행합니다.
 
 /app/config/config.yaml 은 해당 시스템에서 사용할 설정 파일입니다.
+
 /app/data 는 백업된 데이터 및 history 정보가 담긴 sqlite의 파일이 저장될 경로입니다.
 ```bash
 docker run -d \
@@ -40,3 +41,4 @@ docker run -d \
   -e TZ=your-time-zone \
   your-image-name
 ```
+

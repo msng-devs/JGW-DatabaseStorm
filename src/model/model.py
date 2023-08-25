@@ -30,7 +30,6 @@ def init_db():
             con.commit()
     except Exception as e:
         logging.error("Failed init DB. please check your './data' directory")
-
     finally:
         con.close()
 
