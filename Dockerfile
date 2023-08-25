@@ -8,4 +8,7 @@ RUN apt-get update
 RUN apt-get install -y default-mysql-client
 RUN pip install --no-cache-dir -r requirements.txt
 
+ENV TZ=Asia/Seoul
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 ENTRYPOINT ["python3","main.py"]
