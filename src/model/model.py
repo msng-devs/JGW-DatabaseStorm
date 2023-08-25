@@ -26,8 +26,8 @@ def init_db():
             cursor.execute('''CREATE TABLE history (
                                 id INTEGER PRIMARY KEY,
                                 run_date TEXT,
-                                file TEXT,
-                            )''')
+                                file TEXT
+                            );''')
             con.commit()
     except Exception as e:
         logging.error("Failed init DB. please check your './data' directory error: " + str(e))
