@@ -1,3 +1,5 @@
+import logging
+
 import yaml
 import smtplib
 from email.message import EmailMessage
@@ -24,4 +26,4 @@ def send_mail(subject: str, text: str):
     }
     request = json.dumps(message, default=lambda o: o.__dict__, sort_keys=True, indent=4, ensure_ascii=False)
     zmq_socket.send_json(request)
-
+    logging.info("Send Mail to MailStorm Server.")
