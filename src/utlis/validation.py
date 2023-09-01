@@ -3,7 +3,7 @@ import logging
 
 from src.core.mysql_client import run_server_check, run_database_check
 from src.utlis.config import load_config
-from src.utlis.mail import send_mail
+from src.utlis.mailstorm import send_mail
 
 def database_validation():
     run_server_check()

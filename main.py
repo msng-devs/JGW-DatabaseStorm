@@ -1,5 +1,6 @@
 import logging
 import time
+from datetime import datetime
 
 import schedule
 
@@ -7,6 +8,7 @@ from src.model.model import init_db
 from src.utlis.config import load_config
 from src.utlis.log import setup_logging
 from src.core.mysql_client import run_mysqldump
+from src.utlis.mailstorm import send_mail
 from src.utlis.validation import database_validation
 
 
@@ -17,9 +19,9 @@ def main():
     # /app/config/config.yaml 파일을 로드합니다.
     conf = load_config()
 
-    # logging.info("Start Validation smtp.....")
-    # smtp_validation()
-    # logging.info("smtp ok")
+    logging.info("Start Validation mailstorm.....")
+    send_mail("[DatabaseStorm] 확인 메일입니다.", f"{datetime.now()} 에 해당 계정으로 메일을 받도록 설정되었습니다. 백업 실패 및 백업 성공 메일을 해당 메일로 보내드립니다.")
+    logging.info("mailstorm ok")
 
     # 입력된 백업 대상 데이터베이스의 정보를 검증합니다.
     logging.info("Start Validation database.....")

@@ -82,3 +82,49 @@ def find_old_history():
         print("Failed find history")
     finally:
         con.close()
+
+
+def find_all(limit: int):
+    con = sqlite3.connect(db_file_path)
+    cursor = con.cursor()
+    data = None
+    try:
+        cursor.execute("SELECT id,run_date, file FROM history ORDER BY run_date desc LIMIT ?", (limit,))
+        con.commit()
+        data = cursor.fetchall()
+    except Exception as e:
+        print(e)
+        print("Failed find history")
+    finally:
+        con.close()
+    return data
+
+
+def delete(id: str) -> bool:
+    con = sqlite3.connect(db_file_path)
+    cursor = con.cursor()
+    status = False
+    try:
+        cursor.execute("SELECT file FROM history WHERE id = ?", (id,))
+        con.commit()
+        data = cursor.fetchone()
+        if data is None:
+            print("Not found history")
+
+        if os.path.exists(data[0]):
+            print(f"Remove Data: {data[0]}")
+            shutil.rmtree(data[0])
+
+        else:
+            print(f"File not found: {data[0]}")
+
+        cursor.execute("DELETE FROM history WHERE id = ?", (id,))
+        con.commit()
+        status = True
+    except Exception as e:
+        print(e)
+        print("Failed find history")
+    finally:
+        con.close()
+
+    return status

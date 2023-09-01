@@ -7,7 +7,7 @@ import yaml
 
 from src.model.model import create_history
 from src.utlis.config import load_config
-from src.utlis.mail import send_mail
+from src.utlis.mailstorm import send_mail
 from src.utlis.path import get_absolute_path
 
 confing = load_config()
