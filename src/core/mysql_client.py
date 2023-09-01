@@ -10,15 +10,15 @@ from src.utlis.config import load_config
 from src.utlis.mail import send_mail
 from src.utlis.path import get_absolute_path
 
-conf = load_config()
+confing = load_config()
 
 root_directory = os.path.dirname(os.path.abspath(__file__))
 
-mysql_host = str(conf['DB_HOST'])
-mysql_user = str(conf['DB_USER'])
-mysql_password = str(conf['DB_PASSWORD'])
-mysql_database = str(conf['DB_NAME'])
-mysql_port = conf['DB_PORT']
+mysql_host = confing.db_host
+mysql_user = confing.db_user
+mysql_password = confing.db_password
+mysql_database = confing.db_name
+mysql_port = confing.db_port
 
 
 # mysqldump를 수행하는 함수.
@@ -55,15 +55,15 @@ def run_mysqldump():
         history_result = create_history(output_directory)
 
         if history_result:
-            send_mail("[성공] Database Backup", f"{datetime.now()}에 실시한 성공적으로 백업을 완료하였습니다. 생성된 파일명 {output_directory}")
+            send_mail("[DatabaseStorm] Database Backup에 성공했습니다.", f"{datetime.now()}에 실시한 성공적으로 백업을 완료하였습니다. 생성된 파일명 {output_directory}")
 
         else:
-            send_mail("[실패] Database Backup",
+            send_mail("[DatabaseStorm] Database Backup에 실패했습니다.",
                       f"{datetime.now()}에 실시한 백업에서 파일은 성공적으로 저장했지만, 히스토리를 생성하는데 실패했습니다.")
 
     except subprocess.CalledProcessError as e:
         logging.info('Error occurred:', e)
-        send_mail("[실패] Database Backup", f"{datetime.now()}에 실시한 백업을 실패했습니다. 에러 메시지: {str(e)}")
+        send_mail("[DatabaseStorm] Database Backup에 실패했습니다.", f"{datetime.now()}에 실시한 백업을 실패했습니다. 에러 메시지: {str(e)}")
 
 
 # 입력된 데이터베이스 서버 정보가 유효한지 검증하는 함수
