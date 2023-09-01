@@ -35,8 +35,8 @@ def main():
     init_db()
     logging.info("Finish setup system.....")
 
-    logging.info(f"All process is finish! Now Start backup schedule. > {conf['RUN_TIME']}")
-    schedule.every().day.at(str(conf["RUN_TIME"])).do(run_mysqldump)
+    logging.info(f"All process is finish! Now Start backup schedule. > {conf.run_time}")
+    schedule.every().day.at(conf.run_time)).do(run_mysqldump)
 
     while True:
         schedule.run_pending()
