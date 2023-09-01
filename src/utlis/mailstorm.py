@@ -13,7 +13,7 @@ config = load_config()
 def send_mail(subject: str, text: str):
     context = zmq.Context()
     zmq_socket = context.socket(zmq.PUSH)
-    zmq_socket.bind(f"tcp://{config.mailstorm_server}:{config.mailstorm_port}")
+    zmq_socket.connect(f"tcp://{config.mailstorm_server}:{config.mailstorm_port}")
 
     message = {
         "to": f"{config.mailstorm_to}",
