@@ -7,7 +7,7 @@ from src.model.model import init_db
 from src.utlis.config import load_config
 from src.utlis.log import setup_logging
 from src.core.mysql_client import run_mysqldump
-from src.utlis.validation import database_validation, config_file_validation
+from src.utlis.validation import database_validation
 
 
 def main():
@@ -16,11 +16,6 @@ def main():
 
     # /app/config/config.yaml 파일을 로드합니다.
     conf = load_config()
-
-    # Config에 입력된 내용 체크
-    logging.info("Start Validation config.yaml.....")
-    config_file_validation()
-    logging.info("config.yaml ok")
 
     # logging.info("Start Validation smtp.....")
     # smtp_validation()
@@ -40,8 +35,8 @@ def main():
     init_db()
     logging.info("Finish setup system.....")
 
-    logging.info(f"All process is finish! Now Start backup schedule. > {conf['RUN_TIME']}")
-    schedule.every().day.at(str(conf["RUN_TIME"])).do(run_mysqldump)
+    logging.info(f"All process is finish! Now Start backup schedule. > {conf.run_time}")
+    schedule.every().day.at(str(conf.run_time)).do(run_mysqldump)
 
     while True:
         schedule.run_pending()
